@@ -1,15 +1,30 @@
  // script.js
-document.addEventListener("DOMContentLoaded", () => {
-  // --- footer year ---
-  const yearEl = document.getElementById("year");
+// Put this file in the same folder and include with: <script src="script.js" defer></script>
+
+document.addEventListener('DOMContentLoaded', () => {
+  /* ---------- Config ---------- */
+  // Use international format digits-only (e.g. 919058111595). Replace with your number.
+  const PHONE = "919058111595";
+
+  /* ---------- Utilities ---------- */
+  const qs = (s, ctx = document) => ctx.querySelector(s);
+  const qsa = (s, ctx = document) => Array.from((ctx || document).querySelectorAll(s));
+
+  function openWhatsApp(msg = "") {
+    const text = encodeURIComponent(msg || "Hello Guruji, I would like to know more about your services.");
+    const url = `https://api.whatsapp.com/send?phone=${PHONE}&text=${text}`;
+    window.open(url, "_blank", "noopener");
+  }
+
+  /* ---------- Year ---------- */
+  const yearEl = qs('#year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // --- smooth scroll for same-page anchors (only internal) ---
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    const href = a.getAttribute('href');
-    // ignore links that are just "#"
-    if (!href || href === "#") return;
+  /* ---------- Smooth scroll for internal anchors ---------- */
+  qsa('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
@@ -18,89 +33,183 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- hero CTAs ---
-  const learnBtn = document.getElementById("learnBtn");
+  /* ---------- CTA handlers ---------- */
+  const learnBtn = qs('#learnBtn');
   if (learnBtn) {
-    learnBtn.addEventListener("click", () => {
-      const features = document.getElementById("features");
-      if (features) features.scrollIntoView({ behavior: "smooth", block: "start" });
+    learnBtn.addEventListener('click', () => {
+      const features = qs('#features');
+      if (features) features.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
-  // --- contact form demo ---
-  const form = document.getElementById("contactForm");
-  const statusEl = document.getElementById("formStatus");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!statusEl) return;
-      statusEl.textContent = "";
-      const name = (form.name?.value || "").trim();
-      const email = (form.email?.value || "").trim();
-      const message = (form.message?.value || "").trim();
-      if (!name || !email || !message) {
-        statusEl.textContent = "Please fill in all fields.";
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        statusEl.textContent = "Please enter a valid email.";
-        return;
-      }
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const prior = submitBtn ? submitBtn.textContent : null;
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending..."; }
-      setTimeout(() => {
-        statusEl.textContent = "Thank you — your message has been sent (demo).";
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = prior; }
-        form.reset();
-        setTimeout(() => statusEl.textContent = "", 6000);
-      }, 800);
-    });
-  }
-
-  // --- Likes: localStorage-backed, optimistic UI ---
-  const STORAGE_KEY = "astrotalk_features_v1";
-  let store;
+  /* ---------- Like buttons (toggle + localStorage) ---------- */
+  const LIKE_KEY = 'astrotalk_likes_v1'; // localStorage key
+  let likeState = { counts: {}, pressed: {} };
   try {
-    store = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { counts: {}, liked: {} };
-  } catch (err) {
-    store = { counts: {}, liked: {} };
+    const raw = localStorage.getItem(LIKE_KEY);
+    if (raw) likeState = JSON.parse(raw);
+  } catch (e) { /* ignore parse errors */ }
+
+  function saveLikes() {
+    try {
+      localStorage.setItem(LIKE_KEY, JSON.stringify(likeState));
+    } catch (e) { /* ignore storage errors */ }
   }
 
-  const features = document.querySelectorAll(".feature");
-  features.forEach(feature => {
-    const id = feature.getAttribute("data-id") || feature.id || String(Math.random()).slice(2,8);
-    const btn = feature.querySelector(".like-btn");
-    const countSpan = feature.querySelector(".count");
-    const heart = feature.querySelector(".heart");
+  qsa('.feature').forEach(feature => {
+    const id = feature.dataset.id || feature.getAttribute('data-id') || null;
+    const btn = qs('.like-btn', feature);
+    const countEl = qs('.count', feature);
+    if (!id || !btn || !countEl) return;
 
-    if (!btn || !countSpan || !heart) return;
+    const initial = (likeState.counts && likeState.counts[id]) ? likeState.counts[id] : 0;
+    countEl.textContent = initial;
 
-    const initialCount = Number(store.counts[id] || 0);
-    const initialLiked = !!store.liked[id];
+    const pressed = likeState.pressed && likeState.pressed[id];
+    btn.setAttribute('aria-pressed', pressed ? "true" : "false");
 
-    countSpan.textContent = String(initialCount);
-    btn.setAttribute("aria-pressed", initialLiked ? "true" : "false");
-    heart.textContent = initialLiked ? "♥" : "♡";
+    btn.addEventListener('click', () => {
+      const isPressed = btn.getAttribute('aria-pressed') === 'true';
+      if (!likeState.counts) likeState.counts = {};
+      if (!likeState.pressed) likeState.pressed = {};
 
-    btn.addEventListener("click", () => {
-      const isLiked = btn.getAttribute("aria-pressed") === "true";
-      const newLiked = !isLiked;
-      btn.setAttribute("aria-pressed", newLiked ? "true" : "false");
-      heart.textContent = newLiked ? "♥" : "♡";
+      if (isPressed) {
+        likeState.counts[id] = Math.max(0, (likeState.counts[id] || initial) - 1);
+        likeState.pressed[id] = false;
+        btn.setAttribute('aria-pressed', "false");
+      } else {
+        likeState.counts[id] = (likeState.counts[id] || initial) + 1;
+        likeState.pressed[id] = true;
+        btn.setAttribute('aria-pressed', "true");
+      }
 
-      let current = parseInt(countSpan.textContent || "0", 10);
-      current = newLiked ? current + 1 : Math.max(0, current - 1);
-      countSpan.textContent = String(current);
-
-      store.counts[id] = current;
-      store.liked[id] = newLiked;
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(store)); } catch (e) { console.warn("Could not persist likes", e); }
-
-      // small pulse
-      try {
-        btn.animate([{ transform: "scale(1)" }, { transform: "scale(1.06)" }, { transform: "scale(1)" }], { duration: 220, easing: "cubic-bezier(.2,.9,.2,1)" });
-      } catch (_) {}
+      countEl.textContent = likeState.counts[id];
+      saveLikes();
     });
   });
+
+  /* ---------- WhatsApp contact card (inline in Contact section) ---------- */
+  const waOpenBtn = qs('#waOpen');
+  const waTemplatesBtn = qs('#waTemplatesBtn');
+  const waTemplatesBox = qs('#waTemplates');
+
+  if (waOpenBtn) {
+    waOpenBtn.addEventListener('click', () => openWhatsApp());
+  }
+
+  if (waTemplatesBtn && waTemplatesBox) {
+    waTemplatesBtn.addEventListener('click', (e) => {
+      const expanded = waTemplatesBtn.getAttribute('aria-expanded') === 'true';
+      waTemplatesBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      waTemplatesBox.hidden = expanded;
+    });
+
+    waTemplatesBox.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-msg]');
+      if (!btn) return;
+      const msg = btn.getAttribute('data-msg') || '';
+      openWhatsApp(msg);
+    });
+
+    // click outside to close
+    document.addEventListener('click', (e) => {
+      if (!waTemplatesBox || !waTemplatesBtn) return;
+      if (waTemplatesBox.hidden) return;
+      if (!waTemplatesBox.contains(e.target) && !waTemplatesBtn.contains(e.target)) {
+        waTemplatesBox.hidden = true;
+        waTemplatesBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ---------- Floating WhatsApp widget ---------- */
+  const floatBtn = qs('#waFloatBtn');
+  const floatPop = qs('#waPop');
+  const floatTmpls = qsa('.wa-tmpl');
+  const floatOpenDirect = qs('#waOpenDirect');
+  const waBottom = qs('#waBottom');
+  const waBottomOpen = qs('#waBottomOpen');
+
+  // Setup the Open-direct link
+  if (floatOpenDirect) {
+    floatOpenDirect.addEventListener('click', (e) => {
+      e.preventDefault();
+      openWhatsApp();
+    });
+  }
+
+  if (floatBtn && floatPop) {
+    floatBtn.addEventListener('click', (e) => {
+      const currentlyHidden = floatPop.hidden;
+      // toggle
+      floatPop.hidden = !currentlyHidden;
+      floatBtn.setAttribute('aria-expanded', String(!currentlyHidden));
+    });
+
+    floatTmpls.forEach(b => {
+      b.addEventListener('click', () => {
+        const msg = b.getAttribute('data-msg') || '';
+        openWhatsApp(msg);
+      });
+    });
+
+    if (floatOpenDirect) {
+      floatOpenDirect.addEventListener('click', (e) => {
+        e.preventDefault();
+        openWhatsApp();
+      });
+    }
+
+    // close when clicking outside (desktop)
+    document.addEventListener('click', (e) => {
+      if (!floatPop || !floatBtn) return;
+      if (floatPop.hidden) return;
+      if (!floatPop.contains(e.target) && !floatBtn.contains(e.target)) {
+        floatPop.hidden = true;
+        floatBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // bottom bar behavior for small screens
+  const bottomBtn = qs('#waBottomOpen');
+  if (bottomBtn) {
+    bottomBtn.addEventListener('click', () => openWhatsApp());
+  }
+
+  // wire up template buttons in the floating popover
+  qsa('.wa-tmpl').forEach(b => {
+    b.addEventListener('click', (e) => {
+      const msg = b.getAttribute('data-msg') || '';
+      openWhatsApp(msg);
+    });
+  });
+
+  // hide popover by default on small screens (handled by CSS) and show bottom bar
+  function updateFloatDisplay() {
+    const mql = window.matchMedia('(max-width:680px)');
+    const isMobile = mql.matches;
+    // when mobile, we show bottom bar and hide desktop float button/pop
+    if (isMobile) {
+      if (waBottom) waBottom.hidden = false;
+      if (floatPop) floatPop.hidden = true;
+      if (floatBtn) floatBtn.style.display = 'none';
+    } else {
+      if (waBottom) waBottom.hidden = true;
+      if (floatBtn) floatBtn.style.display = '';
+    }
+  }
+  updateFloatDisplay();
+  window.addEventListener('resize', updateFloatDisplay);
+
+  /* ---------- Accessibility & small safety checks ---------- */
+  qsa('.like-btn').forEach((b, idx) => {
+    if (!b.hasAttribute('aria-label')) b.setAttribute('aria-label', `Like feature ${idx+1}`);
+    b.setAttribute('role', 'button');
+    if (!b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', 'false');
+  });
+
+  if (!PHONE || PHONE.length < 6) {
+    console.warn('script.js: PHONE is not configured (replace PHONE variable with your international number).');
+  }
 });

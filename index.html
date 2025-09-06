@@ -31,7 +31,7 @@
     </nav>
 
     <a 
-      href="https://api.whatsapp.com/send?phone=9058111595&text=Hello%20Guruji%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+      href="https://api.whatsapp.com/send?phone=919058111595&text=Hello%20Guruji%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
       target="_blank"
       rel="noopener"
       class="cta whatsapp-btn"
@@ -155,7 +155,7 @@
 
         <!-- 6. Health & Wellness -->
         <article class="feature" data-id="health-wellness">
-            <div class="icon"><img src="astr51.jpg" alt="Gemstone Recommendation" /></div>
+          <div class="icon"><img src="astr51.jpg" alt="Health & Wellness" /></div>
           <div class="feature-body">
             <h3>Health & Wellness</h3>
             <p>Astrological insights into physical & mental wellbeing with preventive advice and supportive remedies.</p>
@@ -220,7 +220,7 @@
             <span class="review-role">Mumbai</span>
             <div class="review-stars">★★★★★</div>
           </div>
-          <p class="review-text">“Accurate career predictions and precise timing — helped me take the right step at work. Highly recommended.”</p>
+          <p class="review-text">“Accurate career predictions and precise timing — helped me take the right step at work. Highly recommended.”p></p>
         </article>
 
         <article class="review-item">
@@ -229,7 +229,7 @@
             <span class="review-role">Kolkata</span>
             <div class="review-stars">★★★★☆</div>
           </div>
-          <p class="review-text">“Warm, patient, and very knowledgeable. The Vastu consultation made a real difference in our home.”</p>
+          <p class="review-text">“Warm, patient, and very knowledgeable. The Vastu consultation made a real difference in our home.”p></p>
         </article>
 
         <article class="review-item">
@@ -238,35 +238,56 @@
             <span class="review-role">Chennai</span>
             <div class="review-stars">★★★★★</div>
           </div>
-          <p class="review-text">“Professional, confidential, and practical. The remedies suggested were easy to apply and effective.”</p>
+          <p class="review-text">“Professional, confidential, and practical. The remedies suggested were easy to apply and effective.”p></p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT (light) -->
   <section id="contact" class="section contact">
-    <div class="container contact-grid">
-      <div class="contact-left">
-        <h2 class="section-title">Get in touch</h2>
-        <p>Have content suggestions, partnership ideas or feedback? Send us a message.</p>
-        <ul class="contact-meta">
-          <li><strong>Email</strong><span>hello@astrotalk.example</span></li>
-          <li><strong>Location</strong><span>Bengaluru, India</span></li>
-        </ul>
-        <div class="small-note">We typically reply within a few business days.</div>
-      </div>
+    <div class="container">
+      <h2 class="section-title">Contact & Appointments</h2>
+      <p class="section-sub">Quick contact options — message via WhatsApp or email to book an appointment.</p>
 
-      <form id="contactForm" class="contact-form" novalidate>
-        <label><span>Name</span><input type="text" name="name" id="name" required placeholder="Your name"></label>
-        <label><span>Email</span><input type="email" name="email" id="email" required placeholder="you@example.com"></label>
-        <label><span>Message</span><textarea name="message" id="message" rows="5" required placeholder="How can we help?"></textarea></label>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Send Message</button>
-          <button type="reset" class="btn btn-ghost">Reset</button>
+      <div class="contact-grid">
+        <div>
+          <ul class="contact-meta">
+            <li><strong>Email</strong><span>hello@astrotalk.example</span></li>
+            <li><strong>Location</strong><span>Bengaluru, India</span></li>
+            <li><strong>Phone</strong><span>+91 9058111595</span></li>
+          </ul>
+
+          <!-- inline WhatsApp contact card -->
+          <div class="wa-contact-card" role="region" aria-label="WhatsApp contact">
+            <div class="wa-left">
+              <div class="wa-avatar">★</div>
+            </div>
+            <div class="wa-body">
+              <div class="wa-title">Chat with Guruji</div>
+              <div class="wa-sub">Fast answers, booking and short queries via WhatsApp</div>
+              <div class="wa-meta">Click templates or start a direct chat.</div>
+            </div>
+            <div class="wa-actions" aria-hidden="false">
+              <button id="waTemplatesBtn" class="wa-quick" aria-expanded="false">Templates ▾</button>
+              <button id="waOpen" class="wa-btn">Open WhatsApp</button>
+
+              <div id="waTemplates" class="wa-templates" hidden>
+                <button data-msg="Hello Guruji, I want a Kundali reading.">Kundali</button>
+                <button data-msg="Hello Guruji, I want career guidance.">Career</button>
+                <button data-msg="Hello Guruji, I want Vastu advice.">Vastu</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
-      </form>
+
+        <!-- Spare slot for other content or booking info -->
+        <div>
+          <p class="feature-body p-small" style="text-align:left; color:var(--muted)">
+            Prefer email? Send the details (name, DOB/time/place, short message) to the address above and we'll reply with availability.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -274,13 +295,44 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div>©️ <span id="year"></span> Astro Talk — All rights reserved</div>
-    <div class="socials">
-      <a href="#">Twitter</a>
-      <a href="#">Instagram</a>
-      <a href="#">GitHub</a>
-    </div>
+    
   </div>
 </footer>
+
+<!-- Floating WhatsApp widget -->
+<div class="wa-float" id="waFloat" aria-hidden="false">
+  <!-- Desktop popover -->
+  <div class="wa-pop" id="waPop" hidden>
+    <div class="wa-pop-header">Chat with Guruji</div>
+    <div class="wa-pop-body">
+      <button class="wa-tmpl" data-msg="Hello Guruji, I want a Kundali reading.">Kundali</button>
+      <button class="wa-tmpl" data-msg="Hello Guruji, please help with career guidance.">Career</button>
+      <button class="wa-tmpl" data-msg="Hello Guruji, I want Vastu advice.">Vastu</button>
+    </div>
+    <div class="wa-pop-footer">
+      <a id="waOpenDirect" class="wa-open-link" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- main round button (desktop primary control) -->
+  <button id="waFloatBtn" class="wa-float-btn" aria-label="Open WhatsApp chat" aria-expanded="false">
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11 11 0 1 0 22 12c0 1.2-.24 2.36-.7 3.43L22 22l-6.2-1.6A10.96 10.96 0 0 0 12 23 11 11 0 0 0 20.5 3.5zM17 14.2c-.3-.1-1.7-.8-1.9-.9-.2-.1-.3-.1-.5.1-.2.2-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.1 0-.3 0-.5 0-.2-.5-1.1-.7-1.5-.2-.4-.4-.3-.6-.3l-.5.0c-.2 0-.5.1-.7.3-.2.2-.9.8-.9 1.9 0 1.1 1 2.4 2.1 3.3 1.4 1.2 3.1 1.7 3.8 1.9.6.1 1.2.1 1.6.0.4 0 1.1-0.4 1.3-0.8.2-.4.2-.9.1-1.1-.1-.2-.3-.3-.6-.4z"/></svg>
+  </button>
+
+  <!-- Mobile bottom bar (hidden on desktop; shown on small screens) -->
+  <div class="wa-bottom" id="waBottom" hidden>
+    <div class="wa-bottom-left">
+      <div class="wa-avatar">★</div>
+      <div class="wa-bottom-text">
+        <div class="wa-pop-header">Chat with Guruji</div>
+        <div class="wa-sub">Quick answers via WhatsApp</div>
+      </div>
+    </div>
+    <div class="wa-bottom-actions">
+      <button id="waBottomOpen" class="wa-btn">Start Chat</button>
+    </div>
+  </div>
+</div>
 
 <script src="script.js" defer></script>
 </body>

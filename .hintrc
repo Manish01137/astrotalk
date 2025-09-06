@@ -11,6 +11,7 @@
           "-webkit-font-feature-settings"
         ]
       }
-    ]
+    ],
+    "no-inline-styles": "off"
   }
 }
