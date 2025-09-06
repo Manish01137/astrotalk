@@ -1,4 +1,4 @@
- // script.js
+// script.js
 // Complete JS for Astro Talk — Guruji Bengali site
 // Place this file next to your index.html and include with: <script src="script.js" defer></script>
 
@@ -44,7 +44,7 @@
   function openWhatsApp(msg = "") {
     if (!PHONE || PHONE.length < 5) {
       console.warn('script.js: PHONE is not configured correctly. Update PHONE at top of script.js.');
-      // open generic chat if phone missing
+      // open generic WhatsApp home if phone missing
       const fallback = `https://api.whatsapp.com/`;
       return window.open(fallback, '_blank', 'noopener');
     }
@@ -77,7 +77,6 @@
           // update focus for accessibility
           target.setAttribute('tabindex', '-1');
           target.focus({ preventScroll: true });
-          // remove temporary tabindex after a short while
           setTimeout(() => target.removeAttribute('tabindex'), 1500);
         }
       });
@@ -99,6 +98,7 @@
 
   /* ---------------------------
      Likes (per-feature) with localStorage
+     - toggles like/unlike and persists counts + pressed state
      --------------------------- */
   function LikesManager() {
     let state = { counts: {}, pressed: {} };
@@ -131,8 +131,8 @@
 
         if (!id || !btn || !countEl) return;
 
-        // initial render
-        const initialCount = Number(state.counts && state.counts[id]) || 0;
+        // initial render - fallback to dataset or 0
+        const initialCount = Number(state.counts && state.counts[id]) || Number(countEl.textContent) || 0;
         countEl.textContent = initialCount;
         const pressed = Boolean(state.pressed && state.pressed[id]);
         btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
@@ -169,7 +169,7 @@
   }
 
   /* ---------------------------
-     WhatsApp inline card (Contact section)
+     Inline WhatsApp card (Contact section)
      --------------------------- */
   function wireInlineWhatsApp() {
     const waOpen = qs('#waOpen');
@@ -188,7 +188,7 @@
         waTemplatesBox.hidden = expanded;
       });
 
-      // click templates
+      // click templates (event delegation)
       waTemplatesBox.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-msg]');
         if (!btn) return;
@@ -229,7 +229,7 @@
 
     if (floatBtn && floatPop) {
       floatBtn.addEventListener('click', () => {
-        const hidden = floatPop.hidden;
+        const hidden = !!floatPop.hidden;
         floatPop.hidden = !hidden;
         floatBtn.setAttribute('aria-expanded', String(!hidden));
       });
@@ -276,6 +276,45 @@
   }
 
   /* ---------------------------
+     Nav toggle (mobile)
+     - toggles body.nav-open, closes on outside click or Escape
+     --------------------------- */
+  function wireNavToggle() {
+    const navToggle = qs('#navToggle');
+    const mainNav = qs('.main-nav');
+    if (!navToggle || !mainNav) return;
+
+    function setNavOpen(open) {
+      document.body.classList.toggle('nav-open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    navToggle.addEventListener('click', (e) => {
+      const isOpen = document.body.classList.contains('nav-open');
+      setNavOpen(!isOpen);
+    });
+
+    // close when click outside
+    document.addEventListener('click', (e) => {
+      if (!document.body.classList.contains('nav-open')) return;
+      const insideNav = mainNav.contains(e.target) || navToggle.contains(e.target);
+      if (!insideNav) setNavOpen(false);
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setNavOpen(false);
+    });
+
+    // ensure nav is hidden when resizing to desktop
+    function onResize() {
+      const isDesktop = window.matchMedia('(min-width:981px)').matches;
+      if (isDesktop) setNavOpen(false);
+    }
+    window.addEventListener('resize', debounce(onResize, 120));
+  }
+
+  /* ---------------------------
      Accessibility helpers
      --------------------------- */
   function ensureA11y() {
@@ -299,6 +338,7 @@
 
     wireInlineWhatsApp();
     wireFloatingWhatsApp();
+    wireNavToggle();
     ensureA11y();
   }
 
@@ -310,8 +350,8 @@
   }
 
   /* ---------------------------
-     Expose small debug helpers on window (optional)
+     Optional debug helpers on window (comment out in production)
      --------------------------- */
-  // window.AstroTalk = { openWhatsApp }; // uncomment for debugging if you want to call from console.
+  // window.AstroTalk = { openWhatsApp }; // uncomment to expose for console debugging
 
 })();

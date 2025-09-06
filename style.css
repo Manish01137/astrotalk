@@ -1,6 +1,6 @@
- /* ===========================
+/* ===========================
    Astro Talk — style.css
-   (Complete CSS for the provided HTML)
+   (Updated to match script.js: #navToggle, centered mobile menu, improved z-index/pointer handling)
    =========================== */
 
 /* Root variables */
@@ -35,6 +35,7 @@ body{
   font-feature-settings: "tnum" 1;
   font-variant-numeric: tabular-nums;
   -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 /* Container */
@@ -71,6 +72,7 @@ body{
   align-items:center;
   text-decoration:none;
   color:inherit;
+  margin-right: auto; /* push other header controls to the right */
 }
 .logo-mark img {
   height: 4.5rem;
@@ -84,12 +86,18 @@ body{
 .brand-sub{ font-size:12px; color:var(--muted); }
 
 /* Nav */
+.main-nav{
+  position:relative;
+  z-index: 65;
+}
 .main-nav ul{
   display:flex;
   gap:18px;
   list-style:none;
   margin:0;
   padding:0;
+  align-items:center;
+  pointer-events:auto; /* ensure clickable */
 }
 .main-nav a{
   color:var(--muted);
@@ -98,12 +106,49 @@ body{
   padding:8px 12px;
   border-radius:8px;
   outline-offset:4px;
-  transition: color var(--ease-fast), background var(--ease-fast);
+  transition: color var(--ease-fast), background var(--ease-fast), transform var(--ease-fast);
 }
 .main-nav a:hover,
 .main-nav a:focus{
   color:var(--gold);
   background:var(--glass);
+  transform: translateY(-2px);
+}
+
+/* Nav toggle: match the id used in your JS (#navToggle) */
+#navToggle{
+  display:none;
+  background:transparent;
+  border:0;
+  padding:8px;
+  cursor:pointer;
+  border-radius:8px;
+  color:var(--muted);
+  transition: background var(--ease-fast), transform var(--ease-fast);
+  z-index:10001; /* above overlay and below menu by default */
+}
+#navToggle:focus{ outline:2px solid rgba(212,175,55,0.14); outline-offset:3px; }
+#navToggle:hover{ background:var(--glass); transform:translateY(-2px); }
+
+/* When nav opens (desktop/medium popover default) */
+body.nav-open .main-nav ul{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:12px 18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  position:absolute;
+  right:12px;
+  top:64px;
+  border-radius:10px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+  border:1px solid rgba(255,255,255,0.03);
+  z-index:10000; /* higher than overlay */
+  min-width:160px;
+  max-height:60vh;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  pointer-events:auto;
 }
 
 /* CTA & Buttons */
@@ -142,8 +187,7 @@ body{
   overflow:visible;
 }
 
-/* Use wallpaper_img.jpg as hero background with overlay for legibility.
-   If the file isn't present, gradient fallback will show. */
+/* Hero background */
 .hero {
   background-image:
     linear-gradient(180deg, rgba(5,5,5,0.42), rgba(5,5,5,0.6)),
@@ -200,7 +244,7 @@ body{
 }
 .hero-card:hover{ transform: translateY(-6px); box-shadow: 0 36px 90px rgba(0,0,0,0.7); }
 
-/* hero image: if astro3.jpg exists it will show; otherwise the card will show background from parent hero */
+/* hero image */
 .hero-card img{
   width:100%;
   height:320px;
@@ -218,7 +262,6 @@ body{
 .section-title { font-size:32px; font-weight:700; margin-bottom:8px; color:#efece6; }
 .section-sub { font-size:15px; color:var(--muted); margin-bottom:28px; }
 
-/* Feature container subtle background */
 #features .container{
   background: linear-gradient(180deg, rgba(255,255,255,0.008), rgba(255,255,255,0.004));
   padding: 28px;
@@ -235,7 +278,7 @@ body{
   margin-top:12px;
 }
 
-/* Feature card */
+/* feature card */
 .feature{
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.004));
   border-radius: var(--radius);
@@ -398,7 +441,7 @@ body{
 /* ===========================
    Floating WhatsApp widget
    =========================== */
-.wa-float{ position: fixed; right:20px; bottom:20px; z-index:9999; font-family:inherit; }
+.wa-float{ position: fixed; right:20px; bottom:20px; z-index:9999; font-family:inherit; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
 .wa-float-btn{
   width:56px;height:56px;border-radius:14px;border:0;display:grid;place-items:center;
   background: linear-gradient(180deg,#26b35c,#1e9b4a); color:#fff; box-shadow:0 12px 30px rgba(2,134,62,0.12); cursor:pointer;
@@ -430,12 +473,24 @@ body{
   background: linear-gradient(180deg,#059b4b,#02863e);
   color:#fff !important; font-weight:600; padding:10px 14px; border-radius:10px;
   text-decoration:none; transition: transform var(--ease-fast), box-shadow var(--ease-fast); border:none;
+  font-size:14px;
 }
 .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(2,134,62,0.08); }
 
 /* ===========================
    Responsive
    =========================== */
+
+/* images responsive */
+img{ max-width:100%; height:auto; display:block; }
+
+/* Desktop / large tablet adjustments */
+@media (max-width:1100px){
+  .features-grid{ grid-template-columns: repeat(3, 1fr); }
+  .hero-grid{ grid-template-columns: 1fr 360px; }
+}
+
+/* Medium screens */
 @media (max-width:980px){
   .hero-grid{ grid-template-columns:1fr; gap:18px; padding: 32px 0; }
   .hero-right{ order:-1; }
@@ -444,19 +499,111 @@ body{
   .container{ width:94%; padding-left:18px; padding-right:18px; }
   .lead{ max-width:100%; }
   .wa-contact-card{ max-width:100%; }
+  .header-inner{ gap:12px; }
+  .logo-mark img{ height:56px; width:56px; }
+  .main-nav ul{ gap:10px; }
+  #navToggle{ display:inline-flex; align-items:center; gap:6px; }
+  .main-nav ul{ display:none; } /* default hidden on medium; opened via body.nav-open */
 }
 
+/* Small screens */
 @media (max-width:680px){
   .features-grid{ grid-template-columns:1fr; }
   .hero-left h1 { font-size:28px; }
   .hero-card img { height:220px; object-position:center; }
-  /* show bottom bar and hide floating popover on small screens */
   .wa-float .wa-pop{ display:none !important; }
   .wa-float .wa-float-btn{ display:none !important; }
   .wa-bottom{ display:flex; }
-  .wa-bottom[hidden]{ display:flex; } /* allow JS toggling */
+  .wa-bottom[hidden]{ display:flex; }
+  .contact-grid{ grid-template-columns:1fr; }
+  .header-inner{ align-items:flex-start; }
+
+  /* fixed hamburger in top-right - ensure it matches JS selector (#navToggle) */
+  #navToggle{
+    display:inline-flex !important;
+    position: fixed;
+    right: 12px;
+    top: 12px;
+    z-index: 10003; /* very high so it remains accessible */
+    width: 48px;
+    height: 48px;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    margin: 0;
+  }
+
+  /* make header WhatsApp small and compact (left of hamburger) */
+  .whatsapp-btn{
+    display:inline-flex !important;
+    position: fixed;
+    right: 74px;
+    top: 12px;
+    z-index: 10002;
+    padding:6px 8px;
+    border-radius:8px;
+    font-size:13px;
+    height:40px;
+    align-items:center;
+    gap:8px;
+    min-width:40px;
+    justify-content:center;
+  }
+
+  /* hide inline nav links */
+  .main-nav ul { display:none; }
+
+  /* centered modal-like dropdown when nav-open */
+  body.nav-open .main-nav ul{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10004; /* above overlay and hamburger */
+    width: min(640px, 92vw);
+    max-width: 92vw;
+    max-height: 78vh;
+    padding: 18px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(5,5,5,0.96), rgba(10,10,10,0.96));
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.72);
+    overflow: auto;
+    align-items:stretch;
+    -webkit-overflow-scrolling: touch;
+    pointer-events:auto;
+  }
+
+  /* tappable links inside centered menu */
+  body.nav-open .main-nav a{
+    display:block;
+    padding:14px 16px;
+    font-size:18px;
+    text-align:center;
+  }
+
+  /* lighter overlay and placed below menu */
+  body.nav-open::before{
+    content:"";
+    position: fixed;
+    left:0; right:0; top:0; bottom:0;
+    background: rgba(0,0,0,0.28); /* less dark */
+    z-index: 10001; /* below menu (10004) and below hamburger (10003) */
+    pointer-events:auto; /* prevent clicks to background */
+  }
+
+  /* only lock body scroll (allow menu to scroll internally) */
+  body.nav-open { overflow: hidden; }
+
+  .brand{ align-items:flex-start; gap:10px; }
 }
 
+/* Extra-small screens */
 @media (max-width:420px){
   .reviews-grid{ grid-template-columns:1fr; }
   .wa-pop{ right:16px; left:16px; margin-bottom:12px; width:auto; }
@@ -464,11 +611,13 @@ body{
   .brand-sub{ font-size:11px; }
   .hero-card img{ height:180px; }
   .hero-left h1{ font-size:22px; }
+  .logo-mark img{ height:48px; width:48px; }
+  .main-nav ul{ display:none; }
+  .container{ padding-left:12px; padding-right:12px; }
+  body.nav-open .main-nav ul{ top:56px; left:50%; transform:translateX(-50%); right:auto; max-width:94vw; }
 }
 
-/* ===========================
-   Small helpers
-   =========================== */
+/* Small helpers */
 .visually-hidden{
   position:absolute !important;
   height:1px; width:1px;
@@ -476,12 +625,15 @@ body{
   white-space:nowrap; border:0; padding:0; margin:-1px;
 }
 
-/* ===========================
-   Image fallbacks (optional)
-   ===========================
-   If you want to force certain feature icons to use uploaded images as backgrounds
-   instead of <img> tags, you could add rules like:
+/* page dim behind the centered menu */
+body.nav-open::before {
+  content:"";
+  position: fixed;
+  left:0; right:0; top:0; bottom:0;
+  background: rgba(0,0,0,0.28); /* lighter overlay */
+  z-index: 9998; /* BELOW the menu (menu is 10004 in CSS) */
+  pointer-events: none; /* <-- KEY: let clicks pass through to menu */
+}
 
-.icon--breakup { background-image: url("WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg"); background-size:cover; background-position:center; }
-   But since your HTML uses <img> inside .icon, the above is optional.
-   =========================== */
+/* Optional image fallbacks (commented) */
+/* .icon--breakup { background-image: url("WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg"); background-size:cover; background-position:center; } */
