@@ -8,7 +8,8 @@
       {
         "ignore": [
           "backdrop-filter",
-          "-webkit-font-feature-settings"
+          "-webkit-font-feature-settings",
+          "-webkit-text-size-adjust"
         ]
       }
     ],
