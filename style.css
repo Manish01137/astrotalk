@@ -21,7 +21,7 @@
     line-height:1.45;
     font-size:16px;
   }
-  
+
   /* Container */
   .container{
     width:90%;
@@ -54,17 +54,23 @@
     text-decoration:none;
     color:inherit;
   }
-  .logo-mark{
-    width:52px; height:52px;
-    border-radius:12px;
-    display:grid;
-    place-items:center;
-    font-weight:800;
-    font-size:20px;
-    color:var(--bg);
-    background:linear-gradient(135deg,var(--gold), #b58f2e);
-    box-shadow:0 6px 20px rgba(212,175,55,0.08);
-  }
+ .logo-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;              /* changed from grid to flex for better control */
+  align-items: center;        /* vertical center */
+  justify-content: center;    /* horizontal center */
+  background: linear-gradient(135deg, var(--gold), #b58f2e);
+  box-shadow: 0 6px 20px rgba(212,175,55,0.08);
+  overflow: hidden;           /* ensures image won’t overflow */
+}
+.logo-mark img {
+  max-width: 70%;   /* make image smaller than the box */
+  max-height: 70%;  /* keep it proportional */
+  object-fit: contain;
+}
+
   .brand-title{font-weight:700; font-size:18px}
   .brand-sub{font-size:12px; color:var(--muted)}
   
