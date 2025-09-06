@@ -58,22 +58,13 @@ body{
   text-decoration:none;
   color:inherit;
 }
-.logo-mark {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  box-shadow: 0 6px 20px rgba(212,175,55,0.06);
-  overflow: hidden;
-}
 .logo-mark img {
-  max-width: 70%;
-  max-height: 70%;
-  object-fit: contain;
+  height: 50px;   /* adjust as needed */
+  width: auto;
+  border-radius: 50px;
+  height: 4.5rem;
 }
+
 .brand-title{font-weight:700; font-size:18px}
 .brand-sub{font-size:12px; color:var(--muted)}
 
