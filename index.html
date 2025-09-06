@@ -11,26 +11,25 @@
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="#">
+    <a class="brand" href="#home">
       <div class="logo-mark" aria-hidden="true">
-      <img src="image.png" alt="Astro Talk Logo" />
-    </div>
-
+        <img src="image.png" alt="Astro Talk Logo" />
+      </div>
       <div>
         <div class="brand-title">Guruji Bengali</div>
+        <div class="brand-sub">Trusted Astrology Guidance</div>
       </div>
     </a>
 
     <nav class="main-nav" aria-label="Primary">
       <ul>
         <li><a href="#home">Home</a></li>
+        <li><a href="#features">Services</a></li>
+        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#service">Service</a></li>
       </ul>
     </nav>
 
-    <!-- WhatsApp button -->
     <a 
       href="https://api.whatsapp.com/send?phone=9058111595&text=Hello%20Guruji%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
       target="_blank"
@@ -42,190 +41,187 @@
   </div>
 </header>
 
-  <main>
-    <!-- HERO -->
-    <section id="home" class="hero">
-      <div class="container hero-grid">
-        <div class="hero-left">
-          <h1>Accurate Astrology Guidance with Guruji Bengali</h1>
-          <p class="lead"> Get trusted astrological solutions for love, marriage, career, health, and business. 
-            With years of experience, Guruji Bengali provides clear guidance to bring peace, prosperity, 
-            and positivity into your life.
-          </p>
-          <div class="hero-ctas">
-            <button class="btn btn-primary" id="learnBtn">Learn More</button>
-            <a class="btn btn-ghost" href="#gallery">View Gallery</a>
-          </div>
-
-          <ul class="stats">
-            <li><strong>120+</strong><span>Articles</span></li>
-            <li><strong>80k</strong><span>Users</span></li>
-            <li><strong>350</strong><span>Images</span></li>
-          </ul>
+<main>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <h1>Accurate Astrology Guidance with Guruji Bengali</h1>
+        <p class="lead">
+          Get trusted astrological solutions for love, marriage, career, health, and business.
+          With years of experience, Guruji Bengali provides clear guidance to bring peace,
+          prosperity, and positivity into your life.
+        </p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" id="learnBtn">Learn More</button>
+          <a class="btn btn-ghost" href="#reviews">Read Reviews</a>
         </div>
 
-        <div class="hero-right">
-          <div class="hero-card">
-            <img src="" alt="Astro wallpaper" />
-            <div class="hero-card-info">
-              <h3>Daily sky highlights</h3>
-              <p>Hand-picked images and short commentary.</p>
-            </div>
-          </div>
-        </div>
+        <ul class="stats" aria-hidden="true">
+          <li><strong>120+</strong><span>Articles</span></li>
+          <li><strong>80k</strong><span>Users</span></li>
+          <li><strong>350</strong><span>Images</span></li>
+        </ul>
       </div>
-    </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="section">
-        <div class="container">
-          <h2 class="section-title">Our Services</h2>
-          <p class="section-sub">Professional content, beautiful visuals, and reliable insights.</p>
-      
-          <div class="features-grid" id="featuresGrid">
-            <article class="feature" data-id="curated-articles">
-              <div class="icon">
-                <img src="astro3.jpg" alt="Love & Relationship Guidance" />
-              </div>
-              <div class="feature-body">
-                <h3>Love & Relationship Guidance</h3>
-                <p>Find clarity in matters of love, marriage, compatibility, and long-lasting relationships with expert astrological advice tailored to your birth chart.</p>
-              </div>
-              <div class="feature-controls">
-                <button class="like-btn" type="button" aria-pressed="false">
-                  <span class="heart">♡</span>
-                  <span class="count">0</span>
-                </button>
-              </div>
-            </article>
-      
-            <article class="feature" data-id="highres-gallery">
-              <div class="icon">
-                <img src="astr51.jpg" alt="Career & Business Astrology" />
-              </div>
-              <div class="feature-body">
-                <h3>Career & Business Astrology</h3>
-                <p>Get guidance on career choices, business opportunities, promotions, and financial growth based on your astrological chart.</p>
-              </div>
-              <div class="feature-controls">
-                <button class="like-btn" type="button" aria-pressed="false">
-                  <span class="heart">♡</span>
-                  <span class="count">0</span>
-                </button>
-              </div>
-            </article>
-      
-            <article class="feature" data-id="lightweight-fast">
-              <div class="icon">
-                <img src="asstro2.jpg" alt="Vastu Consultation" />
-              </div>
-              <div class="feature-body">
-                <h3>Vastu Consultation</h3>
-                <p>Enhance positivity and balance in your home or workplace by aligning rooms, furniture, and entrances according to trusted Vastu Shastra principles.</p>
-              </div>
-              <div class="feature-controls">
-                <button class="like-btn" type="button" aria-pressed="false">
-                  <span class="heart">♡</span>
-                  <span class="count">0</span>
-                </button>
-              </div>
-            </article>
-      
-            <article class="feature" data-id="privacy-first">
-              <div class="icon">
-                <img src="astro1.jpg" alt="Privacy First" />
-              </div>
-              <div class="feature-body">
-                <h3>Privacy First</h3>
-                <p>Your personal details and consultations are kept strictly confidential, ensuring full privacy for all sessions and follow-ups.</p>
-              </div>
-              <div class="feature-controls">
-                <button class="like-btn" type="button" aria-pressed="false">
-                  <span class="heart">♡</span>
-                  <span class="count">0</span>
-                </button>
-              </div>
-            </article>
+      <div class="hero-right">
+        <div class="hero-card">
+          <img src="wallpaper_img.jpg" alt="Astro wallpaper" />
+          <div class="hero-card-info">
+            <h3>Daily sky highlights</h3>
+            <p>Hand-picked images and short commentary.</p>
           </div>
         </div>
-      </section>
-
-    <!-- GALLERY -->
-    <section id="gallery" class="section gallery-section">
-      <div class="container">
-        <h2 class="section-title">Gallery</h2>
-        <p class="section-sub">Images from our demo collection.</p>
-
-        <div class="gallery-grid">
-          <figure class="gallery-item">
-            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg" alt="Demo 1" loading="lazy">
-          </figure>
-          <figure class="gallery-item">
-            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.32_e426e75e.jpg" alt="Demo 2" loading="lazy">
-          </figure>
-          <figure class="gallery-item">
-            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.31_50ad1d54.jpg" alt="Demo 3" loading="lazy">
-          </figure>
-          <figure class="gallery-item">
-            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.32_f52ccb82.jpg" alt="Demo 4" loading="lazy">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section contact">
-      <div class="container contact-grid">
-        <div class="contact-left">
-          <h2 class="section-title">Get in touch</h2>
-          <p>Have content suggestions, partnership ideas or feedback? Send us a message.</p>
-
-          <ul class="contact-meta">
-            <li><strong>Email</strong><span>hello@astrotalk.example</span></li>
-            <li><strong>Location</strong><span>Bengaluru, India</span></li>
-          </ul>
-
-          <div class="small-note">We typically reply within a few business days.</div>
-        </div>
-
-        <form id="contactForm" class="contact-form" novalidate>
-          <label>
-            <span>Name</span>
-            <input type="text" name="name" id="name" required placeholder="Your name">
-          </label>
-
-          <label>
-            <span>Email</span>
-            <input type="email" name="email" id="email" required placeholder="you@example.com">
-          </label>
-
-          <label>
-            <span>Message</span>
-            <textarea name="message" id="message" rows="5" required placeholder="How can we help?"></textarea>
-          </label>
-
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Send Message</button>
-            <button type="reset" class="btn btn-ghost">Reset</button>
-          </div>
-
-          <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>©️ <span id="year"></span> Astro Talk — All rights reserved</div>
-      <div class="socials">
-        <a href="#" aria-label="Twitter">Twitter</a>
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="GitHub">GitHub</a>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script src="script.js"></script>
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-sub">Professional content, beautiful visuals, and reliable insights.</p>
+
+      <div class="features-grid" id="featuresGrid">
+        <article class="feature" data-id="love-relationship">
+          <div class="icon"><img src="astro34.jpg" alt="Love & Relationship Guidance" /></div>
+          <div class="feature-body">
+            <h3>Love & Relationship Guidance</h3>
+            <p>Find clarity in matters of love, marriage, compatibility, and long-lasting relationships with expert astrological advice tailored to your birth chart.</p>
+          </div>
+          <div class="feature-controls">
+            <button class="like-btn" type="button" aria-pressed="false">
+              <span class="heart">♡</span><span class="count">0</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="feature" data-id="career-business">
+          <div class="icon"><img src="astr98.jpg" alt="Career & Business Astrology" /></div>
+          <div class="feature-body">
+            <h3>Career & Business Astrology</h3>
+            <p>Get guidance on career choices, business opportunities, promotions, and financial growth based on your astrological chart.</p>
+          </div>
+          <div class="feature-controls">
+            <button class="like-btn" type="button" aria-pressed="false">
+              <span class="heart">♡</span><span class="count">0</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="feature" data-id="vastu">
+          <div class="icon"><img src="astr51.jpg" alt="Vastu Consultation" /></div>
+          <div class="feature-body">
+            <h3>Vastu Consultation</h3>
+            <p>Enhance positivity and balance in your home or workplace by aligning rooms, furniture, and entrances according to trusted Vastu Shastra principles.</p>
+          </div>
+          <div class="feature-controls">
+            <button class="like-btn" type="button" aria-pressed="false">
+              <span class="heart">♡</span><span class="count">0</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="feature" data-id="kundali">
+          <div class="icon"><img src="astro1.jpg" alt="Kundali Analysis" /></div>
+          <div class="feature-body">
+            <h3>Kundali Analysis</h3>
+            <p>A Kundali (birth chart) maps the positions of planets at your birth. Guruji Bengali provides accurate Kundali readings to reveal strengths, challenges, and personalized remedies to improve life outcomes.</p>
+          </div>
+          <div class="feature-controls">
+            <button class="like-btn" type="button" aria-pressed="false">
+              <span class="heart">♡</span><span class="count">0</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="section reviews-section">
+    <div class="container">
+      <h2 class="section-title">What People Say</h2>
+      <p class="section-sub">Real feedback from clients who found clarity and guidance with Guruji Bengali.</p>
+
+      <div class="reviews-grid">
+        <article class="review-item">
+          <div class="review-head">
+            <strong class="review-name">Priya S.</strong>
+            <span class="review-role">Bengaluru</span>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">“Guruji's Kundali reading helped me understand my relationship and gave clear remedies. Heartfelt guidance and great clarity.”</p>
+        </article>
+
+        <article class="review-item">
+          <div class="review-head">
+            <strong class="review-name">Rohit M.</strong>
+            <span class="review-role">Mumbai</span>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">“Accurate career predictions and precise timing — helped me take the right step at work. Highly recommended.”</p>
+        </article>
+
+        <article class="review-item">
+          <div class="review-head">
+            <strong class="review-name">Anjali K.</strong>
+            <span class="review-role">Kolkata</span>
+            <div class="review-stars">★★★★☆</div>
+          </div>
+          <p class="review-text">“Warm, patient, and very knowledgeable. The Vastu consultation made a real difference in our home.”</p>
+        </article>
+
+        <article class="review-item">
+          <div class="review-head">
+            <strong class="review-name">Suresh P.</strong>
+            <span class="review-role">Chennai</span>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">“Professional, confidential, and practical. The remedies suggested were easy to apply and effective.”</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <div class="container contact-grid">
+      <div class="contact-left">
+        <h2 class="section-title">Get in touch</h2>
+        <p>Have content suggestions, partnership ideas or feedback? Send us a message.</p>
+        <ul class="contact-meta">
+          <li><strong>Email</strong><span>hello@astrotalk.example</span></li>
+          <li><strong>Location</strong><span>Bengaluru, India</span></li>
+        </ul>
+        <div class="small-note">We typically reply within a few business days.</div>
+      </div>
+
+      <form id="contactForm" class="contact-form" novalidate>
+        <label><span>Name</span><input type="text" name="name" id="name" required></label>
+        <label><span>Email</span><input type="email" name="email" id="email" required></label>
+        <label><span>Message</span><textarea name="message" id="message" rows="5" required></textarea></label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <button type="reset" class="btn btn-ghost">Reset</button>
+        </div>
+        <div id="formStatus" class="form-status" role="status"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>©️ <span id="year"></span> Astro Talk — All rights reserved</div>
+    <div class="socials">
+      <a href="#">Twitter</a>
+      <a href="#">Instagram</a>
+      <a href="#">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
 </body>
 </html>
