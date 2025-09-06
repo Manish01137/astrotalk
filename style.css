@@ -1,0 +1,239 @@
+:root{
+    --bg:#050505;           /* deep black */
+    --panel:#0b0b0b;        /* slightly lighter black */
+    --gold:#d4af37;         /* classic gold */
+    --muted:#9b8f7a;        /* muted gold/gray */
+    --glass: rgba(255,255,255,0.03);
+    --radius:14px;
+    --max-width:1100px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color-scheme: dark;
+  }
+  
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:linear-gradient(180deg, var(--bg) 0%, #0a0a0a 100%);
+    color:#efece6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+    font-size:16px;
+  }
+  
+  /* Container */
+  .container{
+    width:90%;
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:40px 0;
+  }
+  
+  /* Header */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:40;
+    backdrop-filter: blur(6px);
+    background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2));
+    border-bottom:1px solid rgba(216,181,72,0.06);
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    justify-content:space-between;
+  }
+  
+  /* Brand */
+  .brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    text-decoration:none;
+    color:inherit;
+  }
+  .logo-mark{
+    width:52px; height:52px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    font-weight:800;
+    font-size:20px;
+    color:var(--bg);
+    background:linear-gradient(135deg,var(--gold), #b58f2e);
+    box-shadow:0 6px 20px rgba(212,175,55,0.08);
+  }
+  .brand-title{font-weight:700; font-size:18px}
+  .brand-sub{font-size:12px; color:var(--muted)}
+  
+  /* Nav */
+  .main-nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
+  .main-nav a{
+    color:var(--muted);
+    text-decoration:none;
+    font-weight:600;
+    padding:10px 12px;
+    border-radius:8px;
+  }
+  .main-nav a:hover{color:var(--gold); background:var(--glass)}
+  
+  /* CTA */
+  .cta, .btn{
+    border:0;
+    cursor:pointer;
+    font-weight:700;
+    padding:10px 14px;
+    border-radius:10px;
+  }
+  .cta{background:transparent; color:var(--gold); border:1px solid rgba(212,175,55,0.14)}
+  .btn-primary{
+    background:linear-gradient(180deg,var(--gold), #caa83d);
+    color:#050505;
+    box-shadow:0 8px 30px rgba(212,175,55,0.08);
+  }
+  .btn-ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.04);
+    color:var(--muted);
+  }
+  
+  /* HERO */
+  .hero{
+    padding:60px 0;
+    margin-top:8px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:32px;
+    align-items:center;
+  }
+  .hero-left h1{
+    font-size:40px;
+    margin:0 0 12px;
+    letter-spacing:-0.5px;
+  }
+  .lead{color:var(--muted); margin-bottom:18px; max-width:60%}
+  
+  .hero-ctas{display:flex; gap:12px; margin-bottom:22px}
+  .stats{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+  .stats li{display:flex; flex-direction:column; align-items:flex-start}
+  .stats strong{font-size:18px; color:var(--gold)}
+  
+  /* Hero card */
+  .hero-card{
+    border-radius:16px;
+    overflow:hidden;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  }
+  .hero-card img{width:100%; height:320px; object-fit:cover; display:block}
+  .hero-card-info{padding:16px 18px}
+  
+  /* Sections */
+  .section{padding:60px 0}
+  .section-title{font-size:22px; margin:0 0 6px; color:var(--gold)}
+  .section-sub{color:var(--muted); margin-bottom:20px}
+  
+  /* Features grid */
+  .features-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-top:18px;
+  }
+  .feature{
+    padding:20px;
+    border-radius:12px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    min-height:140px;
+  }
+  .feature .icon{font-size:26px; margin-bottom:12px}
+  
+  /* Gallery */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:12px;
+    margin-top:18px;
+  }
+  .gallery-item img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+    display:block;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  
+  /* Contact layout */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  .contact-form{
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    padding:20px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .contact-form label{display:block; margin-bottom:12px; font-size:14px; color:var(--muted)}
+  .contact-form input,
+  .contact-form textarea{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.04);
+    background:transparent;
+    color:inherit;
+    outline:none;
+  }
+  .form-actions{display:flex; gap:10px; margin-top:6px}
+  .form-status{margin-top:12px; color:var(--muted)}
+  
+  /* Footer */
+  .site-footer{
+    border-top:1px solid rgba(216,181,72,0.04);
+    padding:18px 0;
+    color:var(--muted);
+  }
+  .footer-inner{display:flex; justify-content:space-between; align-items:center}
+  
+  /* Responsive */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-right{order:-1}
+    .features-grid{grid-template-columns:repeat(2,1fr)}
+    .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    .container{width:94%}
+  }
+  @media (max-width:560px){
+    .main-nav{display:none}
+    .features-grid{grid-template-columns:1fr}
+    .gallery-grid{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .lead{max-width:100%}
+    .brand-sub{display:none}
+  }
+  
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #2eb660;
+    color: #fff !important;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    border: none;
+  }
+  .whatsapp-btn:hover {
+    background: #1ebe5c;
+  }

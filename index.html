@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Astro Talk — Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#">
+      <div class="logo-mark" aria-hidden="true">★</div>
+      <div>
+        <div class="brand-title">Guruji Bengali</div>
+      </div>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#service">Service</a></li>
+      </ul>
+    </nav>
+
+    <!-- WhatsApp button -->
+    <a 
+      href="https://api.whatsapp.com/send?phone=9058111595&text=Hello%20Guruji%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+      target="_blank"
+      rel="noopener"
+      class="cta whatsapp-btn"
+    >
+      WhatsApp Us
+    </a>
+  </div>
+</header>
+
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <h1>Explore the cosmos from your desk</h1>
+          <p class="lead">Astro Talk brings curated space content, visual galleries, and expert insights — elegantly packaged in a professional black & gold theme.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary" id="learnBtn">Learn More</button>
+            <a class="btn btn-ghost" href="#gallery">View Gallery</a>
+          </div>
+
+          <ul class="stats">
+            <li><strong>120+</strong><span>Articles</span></li>
+            <li><strong>80k</strong><span>Users</span></li>
+            <li><strong>350</strong><span>Images</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-card">
+            <img src="/mnt/data/wallpaper_img.jpg" alt="Astro wallpaper" />
+            <div class="hero-card-info">
+              <h3>Daily sky highlights</h3>
+              <p>Hand-picked images and short commentary.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="section-title">What we offer</h2>
+        <p class="section-sub">Professional content, beautiful visuals, and reliable insights.</p>
+
+        <div class="features-grid">
+          <article class="feature">
+            <div class="icon">🛰️</div>
+            <h3>Curated Articles</h3>
+            <p>Short, authoritative reads about space missions, astronomy, and astrophysics.</p>
+          </article>
+
+          <article class="feature">
+            <div class="icon">🔭</div>
+            <h3>High-Res Gallery</h3>
+            <p>Stunning images with source details and viewing notes from photographers and astronomers.</p>
+          </article>
+
+          <article class="feature">
+            <div class="icon">⚡</div>
+            <h3>Lightweight & Fast</h3>
+            <p>Optimized front-end for fast loading and a smooth reading experience.</p>
+          </article>
+
+          <article class="feature">
+            <div class="icon">🔒</div>
+            <h3>Privacy First</h3>
+            <p>No ads, no tracking — just content and community.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="section gallery-section">
+      <div class="container">
+        <h2 class="section-title">Gallery</h2>
+        <p class="section-sub">Images from our demo collection.</p>
+
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg" alt="Demo 1" loading="lazy">
+          </figure>
+          <figure class="gallery-item">
+            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.32_e426e75e.jpg" alt="Demo 2" loading="lazy">
+          </figure>
+          <figure class="gallery-item">
+            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.31_50ad1d54.jpg" alt="Demo 3" loading="lazy">
+          </figure>
+          <figure class="gallery-item">
+            <img src="/mnt/data/WhatsApp Image 2025-09-06 at 18.09.32_f52ccb82.jpg" alt="Demo 4" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact">
+      <div class="container contact-grid">
+        <div class="contact-left">
+          <h2 class="section-title">Get in touch</h2>
+          <p>Have content suggestions, partnership ideas or feedback? Send us a message.</p>
+
+          <ul class="contact-meta">
+            <li><strong>Email</strong><span>hello@astrotalk.example</span></li>
+            <li><strong>Location</strong><span>Bengaluru, India</span></li>
+          </ul>
+
+          <div class="small-note">We typically reply within a few business days.</div>
+        </div>
+
+        <form id="contactForm" class="contact-form" novalidate>
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" id="name" required placeholder="Your name">
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" id="email" required placeholder="you@example.com">
+          </label>
+
+          <label>
+            <span>Message</span>
+            <textarea name="message" id="message" rows="5" required placeholder="How can we help?"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <button type="reset" class="btn btn-ghost">Reset</button>
+          </div>
+
+          <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>©️ <span id="year"></span> Astro Talk — All rights reserved</div>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">Twitter</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="GitHub">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
