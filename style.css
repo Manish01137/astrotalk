@@ -1,4 +1,4 @@
-/* ===========================
+ /* ===========================
    Astro Talk — style.css
    (Updated to match script.js: #navToggle, centered mobile menu, improved z-index/pointer handling)
    =========================== */
@@ -498,6 +498,26 @@ body.nav-open .main-nav ul{
   font-size:14px;
 }
 .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(2,134,62,0.08); }
+.btn-whatsapp.big {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #25D366;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1rem 0; /* spacing around button */
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-whatsapp.big:hover {
+  background-color: #1ebe5d;
+  transform: scale(1.05);
+}
 
 /* ===========================
    Responsive
@@ -659,8 +679,17 @@ body.nav-open::before {
   pointer-events: none; /* <-- KEY: let clicks pass through to menu */
 }
 
+/* Optional image fallbacks (now active) */
+.icon--breakup {
+  background-image: url("WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg");
+  background-size: cover;
+  background-position: center;
+}
 
-
+/* .icon--breakup example usage:
+   <div class="icon icon--breakup" aria-hidden="true"></div>
+   or apply the class to any element that should show the image as a background.
+*/
 
 /* Optional image fallbacks (commented) */
 /* .icon--breakup { background-image: url("WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg"); background-size:cover; background-position:center; } */
