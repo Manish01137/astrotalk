@@ -809,3 +809,284 @@ body.nav-open::before {
 
 /* Optional image fallbacks (commented) */
 /* .icon--breakup { background-image: url("WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg"); background-size:cover; background-position:center; } */
+
+
+/* -------------------------
+   NAV (unified & fixed)
+   ------------------------- */
+
+/* Desktop nav (default) */
+.main-nav {
+  position: relative;
+  z-index: 65;
+}
+.main-nav ul{
+  display:flex;
+  gap:18px;
+  list-style:none;
+  margin:0;
+  padding:0;
+  align-items:center;
+  pointer-events:auto;
+}
+
+/* Nav toggle (hamburger) */
+#navToggle{
+  display:none; /* shown in mobile via media queries */
+  background:transparent;
+  border:0;
+  padding:8px;
+  cursor:pointer;
+  border-radius:8px;
+  color:var(--muted);
+  transition: background var(--ease-fast), transform var(--ease-fast);
+  z-index:10003;
+}
+#navToggle:focus{ outline:2px solid rgba(212,175,55,0.14); outline-offset:3px; }
+#navToggle:hover{ background:var(--glass); transform:translateY(-2px); }
+
+/* Desktop dropdown (for wider screens when nav toggled) */
+@media (min-width: 901px) {
+  body.nav-open .main-nav ul,
+  .main-nav.open ul {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:12px 18px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    position:absolute;
+    right:12px;
+    top:64px;
+    border-radius:10px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+    z-index:10000;
+    min-width:160px;
+    max-height:60vh;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    pointer-events:auto;
+  }
+}
+
+/* -------------------------
+   MOBILE / SMALL SCREENS
+   ------------------------- */
+@media (max-width:900px) {
+
+  /* show toggle and hide inline menu */
+  #navToggle{ display:block; }
+
+  .main-nav {
+    position: fixed;          /* fixed so centered modal is independent */
+    inset: 0 auto auto 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;     /* disabled until open */
+    z-index: 10002;           /* below the hamburger (10003) when closed */
+  }
+
+  /* base hidden state for the mobile menu */
+  .main-nav ul {
+    display:flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transform: translateY(-8px);
+    opacity: 0;
+    transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 160ms linear;
+    background: transparent;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  /* OPEN state: centered modal-like menu */
+  body.nav-open .main-nav,
+  .main-nav.open {
+    pointer-events: auto;
+  }
+
+  body.nav-open .main-nav ul,
+  .main-nav.open ul {
+    transform: none;
+    opacity: 1;
+    margin: 12px 16px 20px;
+    padding: 18px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(5,5,5,0.96), rgba(10,10,10,0.96));
+    box-shadow: 0 30px 80px rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.04);
+    pointer-events: auto;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10004; /* above overlay and hamburger */
+    width: min(640px, 92vw);
+    max-height: 78vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: stretch;
+  }
+
+  /* tappable links inside centered menu */
+  body.nav-open .main-nav a,
+  .main-nav.open a {
+    display:block;
+    padding:14px 16px;
+    font-size:18px;
+    text-align:center;
+    color:var(--muted);
+  }
+
+  /* overlay behind the menu (prevents background interaction) */
+  body.nav-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.28);
+    z-index: 10001; /* below the menu (10004) but above page content */
+    pointer-events: auto;
+  }
+
+  /* lock body scroll while allowing menu to scroll */
+  body.nav-open { overflow: hidden; }
+}
+
+/* small tweak to ensure inline desktop nav hides on medium screens (JS toggles body.nav-open) */
+@media (max-width:980px){
+  .main-nav ul{ gap:10px; }
+  .main-nav ul { display:none; } /* will show when .open or body.nav-open */
+}
+
+
+/* Nav toggle (hamburger) - keep appearance, unchanged */
+#navToggle{
+  display:none; /* shown in mobile via media queries */
+  background:transparent;
+  border:0;
+  padding:8px;
+  cursor:pointer;
+  border-radius:8px;
+  color:var(--muted);
+  transition: background var(--ease-fast), transform var(--ease-fast);
+  z-index:10003;
+}
+#navToggle:focus{ outline:2px solid rgba(212,175,55,0.14); outline-offset:3px; }
+#navToggle:hover{ background:var(--glass); transform:translateY(-2px); }
+
+/* ---------- OPENED MENU: appear 100px from top ---------- */
+/* Desktop dropdown (for wider screens when nav toggled) */
+@media (min-width: 901px) {
+  body.nav-open .main-nav ul,
+  .main-nav.open ul {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:12px 18px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    position:absolute;
+    right:12px;
+    top:100px;               /* <-- desktop: 100px down */
+    border-radius:10px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+    z-index:10000;
+    min-width:160px;
+    max-height: calc(100vh - 140px); /* leave some gap at bottom */
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    pointer-events:auto;
+  }
+}
+
+/* Mobile / small screens: fixed menu 100px from top */
+@media (max-width:900px) {
+
+  /* base hidden state for the mobile menu */
+  .main-nav ul {
+    display:flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transform: translateY(-8px);
+    opacity: 0;
+    transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 160ms linear;
+    background: transparent;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  /* OPEN state: anchored modal-like menu 100px from top */
+  body.nav-open .main-nav,
+  .main-nav.open {
+    pointer-events: auto;
+  }
+
+  body.nav-open .main-nav ul,
+  .main-nav.open ul {
+    transform: none;
+    opacity: 1;
+    margin: 0 16px;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(5,5,5,0.98), rgba(10,10,10,0.98));
+    box-shadow: 0 30px 80px rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,255,255,0.04);
+    pointer-events: auto;
+    position: fixed;
+    left: 50%;
+    top: 100px;                /* <-- mobile: 100px down */
+    transform: translateX(-50%); /* only horizontal centering */
+    z-index: 10004;            /* above overlay and hamburger */
+    width: min(640px, 92vw);
+    max-height: calc(100vh - 140px); /* allow room below for small screens */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    align-items: stretch;
+  }
+
+  /* tappable links inside anchored menu */
+  body.nav-open .main-nav a,
+  .main-nav.open a {
+    display:block;
+    padding:12px 14px;
+    font-size:17px;
+    text-align:center;
+    color:var(--muted);
+  }
+
+  /* overlay behind the menu (prevents background interaction) */
+  body.nav-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.28);
+    z-index: 10001; /* below the menu (10004) but above page content */
+    pointer-events: auto;
+  }
+
+  /* lock body scroll while allowing menu to scroll */
+  body.nav-open { overflow: hidden; }
+}
+
+/* Mobile: place WhatsApp button at top-right corner */
+@media (max-width: 900px) {
+  .whatsapp-btn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 10002; /* keep it above content, below hamburger if needed */
+  }
+}
+
+.brand-title-sub{
+  margin-top:17px ;
+}
