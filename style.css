@@ -49,134 +49,250 @@ body{
 /* ===========================
    Header
    =========================== */
-.site-header{
-  position:fixed;
-  top: 0;
-  z-index: 40;
-  backdrop-filter: blur(6px);
-  background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.22));
-  border-bottom: 1px solid rgba(216,181,72,0.06);
-  width:100dvw;
-}
-.header-inner{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  justify-content:space-between;
-  padding: 8px 0;
-}
+/* =========================
+   Header — updated for mobile responsiveness
+   ========================= */
 
-/* Brand */
-.brand{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  text-decoration:none;
-  color:inherit;
-  margin-right: auto; /* push other header controls to the right */
-}
-.logo-mark img {
-  height: 4.5rem;
-  width: auto;
-  border-radius: 50px;
-  display:block;
-  object-fit:cover;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-}
-.brand-title{ font-weight:700; font-size:18px; }
-.brand-sub{ font-size:12px; color:var(--muted); }
-
-/* Nav */
-.main-nav{
-  position:relative;
-  z-index: 65;
-}
-.main-nav ul{
-  display:flex;
-  gap:18px;
-  list-style:none;
-  margin:0;
-  padding:0;
-  align-items:center;
-  pointer-events:auto; /* ensure clickable */
-}
-.main-nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-weight:600;
-  padding:8px 12px;
-  border-radius:8px;
-  outline-offset:4px;
-  transition: color var(--ease-fast), background var(--ease-fast), transform var(--ease-fast);
-}
-.main-nav a:hover,
-.main-nav a:focus{
-  color:var(--gold);
-  background:var(--glass);
-  transform: translateY(-2px);
-}
-
-/* Nav toggle: match the id used in your JS (#navToggle) */
-#navToggle{
-  display:none;
-  background:transparent;
-  border:0;
-  padding:8px;
-  cursor:pointer;
-  border-radius:8px;
-  color:var(--muted);
-  transition: background var(--ease-fast), transform var(--ease-fast);
-  z-index:10001; /* above overlay and below menu by default */
-}
-#navToggle:focus{ outline:2px solid rgba(212,175,55,0.14); outline-offset:3px; }
-#navToggle:hover{ background:var(--glass); transform:translateY(-2px); }
-
-/* When nav opens (desktop/medium popover default) */
-body.nav-open .main-nav ul{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding:12px 18px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  position:absolute;
-  right:12px;
-  top:64px;
-  border-radius:10px;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
-  border:1px solid rgba(255,255,255,0.03);
-  z-index:10000; /* higher than overlay */
-  min-width:160px;
-  max-height:60vh;
-  overflow:auto;
-  -webkit-overflow-scrolling: touch;
-  pointer-events:auto;
-}
-
-/* CTA & Buttons */
-.cta, .btn{
-  border:0;
-  cursor:pointer;
-  font-weight:700;
-  padding:10px 14px;
-  border-radius:10px;
-  transition: transform var(--ease-fast), box-shadow var(--ease-fast), opacity var(--ease-fast);
-}
-.cta{
-  background:transparent;
-  color:var(--gold);
-  border:1px solid rgba(212,175,55,0.14);
-}
-.btn-primary{
-  background: linear-gradient(180deg,var(--gold), var(--gold-dark));
-  color:#050505;
-  box-shadow: 0 8px 30px rgba(212,175,55,0.06);
-}
-.btn-ghost{
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.04);
-  color:var(--muted);
-}
-.btn:hover { transform: translateY(-3px); }
+   .site-header{
+    position: fixed;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.22));
+    border-bottom: 1px solid rgba(216,181,72,0.06);
+    width: 100dvw;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* container row */
+  .header-inner{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    justify-content:space-between;
+    padding: 8px 16px; /* slightly more padding on sides for touch targets */
+  }
+  
+  /* Brand */
+  .brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    text-decoration:none;
+    color:inherit;
+    margin-right: auto; /* push other header controls to the right */
+  }
+  .logo-mark img {
+    height: 4.5rem;
+    width: auto;
+    border-radius: 50px;
+    display:block;
+    object-fit:cover;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+  .brand-title{ font-weight:700; font-size:18px; line-height:1; }
+  .brand-sub{ font-size:12px; color:var(--muted); line-height:1; }
+  
+  /* Nav (desktop default) */
+  .main-nav{
+    position:relative;
+    z-index: 65;
+  }
+  .main-nav ul{
+    display:flex;
+    gap:18px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    align-items:center;
+    pointer-events:auto; /* ensure clickable */
+  }
+  .main-nav a{
+    color:var(--muted);
+    text-decoration:none;
+    font-weight:600;
+    padding:8px 12px;
+    border-radius:8px;
+    outline-offset:4px;
+    transition: color var(--ease-fast), background var(--ease-fast), transform var(--ease-fast);
+  }
+  .main-nav a:hover,
+  .main-nav a:focus{
+    color:var(--gold);
+    background:var(--glass);
+    transform: translateY(-2px);
+  }
+  
+  /* Nav toggle: match the id used in your JS (#navToggle) */
+  #navToggle{
+    display:none; /* shown in mobile with media query */
+    background:transparent;
+    border:0;
+    padding:8px;
+    cursor:pointer;
+    border-radius:8px;
+    color:var(--muted);
+    transition: background var(--ease-fast), transform var(--ease-fast);
+    z-index:10001; /* above overlay and below menu by default */
+  }
+  #navToggle:focus{ outline:2px solid rgba(212,175,55,0.14); outline-offset:3px; }
+  #navToggle:hover{ background:var(--glass); transform:translateY(-2px); }
+  
+  /* Desktop popover (when body.nav-open used on wider screens) */
+  body.nav-open .main-nav ul{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:12px 18px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    position:absolute;
+    right:12px;
+    top:64px;
+    border-radius:10px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+    z-index:10000; /* higher than overlay */
+    min-width:160px;
+    max-height:60vh;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    pointer-events:auto;
+  }
+  
+  /* CTA & Buttons */
+  .cta, .btn{
+    border:0;
+    cursor:pointer;
+    font-weight:700;
+    padding:10px 14px;
+    border-radius:10px;
+    transition: transform var(--ease-fast), box-shadow var(--ease-fast), opacity var(--ease-fast);
+  }
+  .cta{
+    background:transparent;
+    color:var(--gold);
+    border:1px solid rgba(212,175,55,0.14);
+  }
+  .btn-primary{
+    background: linear-gradient(180deg,var(--gold), var(--gold-dark));
+    color:#050505;
+    box-shadow: 0 8px 30px rgba(212,175,55,0.06);
+  }
+  .btn-ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.04);
+    color:var(--muted);
+  }
+  .btn:hover { transform: translateY(-3px); }
+  
+  /* -------------------------
+     MOBILE / SMALL SCREENS
+     ------------------------- */
+  @media (max-width: 900px) {
+    /* show toggle, hide inline menu */
+    #navToggle{ display: block; }
+  
+    /* keep brand compact on small screens */
+    .logo-mark img { height: 3.6rem; }
+    .brand-title { font-size:16px; }
+    .brand-sub { font-size:11px; }
+  
+    /* hide the inline menu visually, we'll handle via transform for animation */
+    .main-nav {
+      position: absolute;
+      inset: 0 auto auto 0;
+      top: 100%;
+      left: 0;
+      right: 0;
+      pointer-events: none; /* disabled until open */
+    }
+  
+    .main-nav ul {
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      transform: translateY(-8px);
+      opacity: 0;
+      transition: transform 240ms cubic-bezier(.2,.9,.2,1), opacity 160ms linear;
+      background: transparent;
+      pointer-events: none;
+    }
+  
+    /* visible mobile menu when body.nav-open is set or .open class used */
+    body.nav-open .main-nav,
+    .main-nav.open {
+      pointer-events: auto;
+    }
+  
+    body.nav-open .main-nav ul,
+    .main-nav.open ul {
+      transform: translateY(0);
+      opacity: 1;
+      margin: 12px 16px 20px;
+      padding: 12px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+      pointer-events: auto;
+    }
+  
+    .main-nav.open ul a,
+    body.nav-open .main-nav ul a {
+      display: block;
+      padding: 14px 18px;
+      color: var(--muted);
+      border-radius: 8px;
+    }
+  
+    /* spacing between nav items on mobile */
+    body.nav-open .main-nav ul li + li,
+    .main-nav.open ul li + li {
+      margin-top: 6px;
+    }
+  
+    /* Ensure CTA (whatsapp) doesn't overlap menu — push it to header right with smaller size */
+    .whatsapp-btn {
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      border-radius: 10px;
+    }
+  
+    /* Optional: make WhatsApp a small floating button on very small screens to avoid header crowding */
+    @media (max-width: 480px) {
+      .whatsapp-btn {
+        display: none; /* hide header CTA to avoid overlap */
+      }
+  
+      /* floating WhatsApp (small circular) */
+      .whatsapp-floating {
+        display: block;
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 11000;
+        width: 56px;
+        height: 56px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        text-decoration: none;
+        background: linear-gradient(180deg,var(--gold),var(--gold-dark));
+        color: #050505;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        font-weight: 800;
+      }
+    }
+  }
+  
+  /* small touch target improvements */
+  .main-nav a, .cta, .btn {
+    -webkit-tap-highlight-color: rgba(255,255,255,0.02);
+    touch-action: manipulation;
+  }
+  
 
 /* ===========================
    HERO
