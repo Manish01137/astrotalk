@@ -50,19 +50,20 @@ body{
    Header
    =========================== */
 .site-header{
-  position: sticky;
+  position:fixed;
   top: 0;
   z-index: 40;
   backdrop-filter: blur(6px);
   background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.22));
   border-bottom: 1px solid rgba(216,181,72,0.06);
+  width:100dvw;
 }
 .header-inner{
   display:flex;
   align-items:center;
   gap:20px;
   justify-content:space-between;
-  padding: 6px 0;
+  padding: 8px 0;
 }
 
 /* Brand */
@@ -201,32 +202,49 @@ body.nav-open .main-nav ul{
 
 /* grid layout */
 .hero-grid{
-  display:grid;
-  grid-template-columns: 1fr 420px;
+  display:flex;
+  align-items: center;
+  justify-content:center;
+  flex-direction: column;
   gap:32px;
   align-items:center;
   padding: 46px 0;
+  text-align: center;
 }
 
 /* left column */
 .hero-left h1{
-  font-size:40px;
+  font-size:35px;
   margin:0 0 12px;
   letter-spacing:-0.5px;
   line-height:1.05;
+  text-align: center;
 }
 .lead{
+  width: 100%;
   color:var(--muted);
   margin-bottom:18px;
   max-width:62%;
   font-size:16px;
+  text-align: center;
+}
+.hero-text{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.hero-text h1{
+  margin-bottom: 4rem;
 }
 
 /* CTA group */
-.hero-ctas{ display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+.hero-ctas{ display:flex; gap:12px; align-items:center; margin-bottom:18px;width: 100%;justify-content: center; }
 
 /* stats */
-.stats{ display:flex; gap:18px; list-style:none; padding:0; margin:18px 0 0; }
+.stats{ display:flex; gap:18px; list-style:none; padding:0; margin:18px 0 0;align-items: center;justify-content: center;width: 100%; }
 .stats li{ display:flex; flex-direction:column; gap:4px; align-items:flex-start; color:var(--muted); }
 .stats strong{ font-size:18px; color:#fff; }
 
@@ -258,6 +276,10 @@ body.nav-open .main-nav ul{
 /* ===========================
    FEATURES / Services
    =========================== */
+
+.section{
+  margin-top: -8rem;
+}
 .section { padding: 56px 20px; text-align:center; }
 .section-title { font-size:32px; font-weight:700; margin-bottom:8px; color:#efece6; }
 .section-sub { font-size:15px; color:var(--muted); margin-bottom:28px; }
@@ -517,6 +539,8 @@ img{ max-width:100%; height:auto; display:block; }
   .wa-bottom[hidden]{ display:flex; }
   .contact-grid{ grid-template-columns:1fr; }
   .header-inner{ align-items:flex-start; }
+  
+}
 
   /* fixed hamburger in top-right - ensure it matches JS selector (#navToggle) */
   #navToggle{
@@ -601,7 +625,7 @@ img{ max-width:100%; height:auto; display:block; }
   body.nav-open { overflow: hidden; }
 
   .brand{ align-items:flex-start; gap:10px; }
-}
+
 
 /* Extra-small screens */
 @media (max-width:420px){
@@ -634,6 +658,9 @@ body.nav-open::before {
   z-index: 9998; /* BELOW the menu (menu is 10004 in CSS) */
   pointer-events: none; /* <-- KEY: let clicks pass through to menu */
 }
+
+
+
 
 /* Optional image fallbacks (commented) */
 /* .icon--breakup { background-image: url("WhatsApp Image 2025-09-06 at 18.09.31_e79d2826.jpg"); background-size:cover; background-position:center; } */

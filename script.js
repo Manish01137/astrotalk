@@ -1,7 +1,5 @@
 // script.js
-// Complete JS for Astro Talk — Guruji Bengali site
-// Place this file next to your index.html and include with: <script src="script.js" defer></script>
-
+// Cleaned JS for Astro Talk — likes/localStorage removed
 (function () {
   'use strict';
 
@@ -10,9 +8,6 @@
      --------------------------- */
   // International phone number digits-only (example: 919058111595)
   const PHONE = "919058111595";
-
-  // localStorage key for likes
-  const LIKE_KEY = 'astrotalk_likes_v1';
 
   // Debounce helper for resize events
   function debounce(fn, wait = 120) {
@@ -29,22 +24,12 @@
   const qs = (sel, ctx = document) => ctx.querySelector(sel);
   const qsa = (sel, ctx = document) => Array.from((ctx || document).querySelectorAll(sel));
 
-  // Safe JSON parse
-  function safeJSONParse(str, fallback = null) {
-    try {
-      return JSON.parse(str);
-    } catch (e) {
-      return fallback;
-    }
-  }
-
   /* ---------------------------
      WhatsApp opener
      --------------------------- */
   function openWhatsApp(msg = "") {
     if (!PHONE || PHONE.length < 5) {
       console.warn('script.js: PHONE is not configured correctly. Update PHONE at top of script.js.');
-      // open generic WhatsApp home if phone missing
       const fallback = `https://api.whatsapp.com/`;
       return window.open(fallback, '_blank', 'noopener');
     }
@@ -66,7 +51,6 @@
      --------------------------- */
   function wireSmoothScroll() {
     qsa('a[href^="#"]').forEach(a => {
-      // Skip links that are only '#'
       const href = a.getAttribute('href');
       if (!href || href === '#') return;
       a.addEventListener('click', (ev) => {
@@ -74,7 +58,6 @@
         if (target) {
           ev.preventDefault();
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // update focus for accessibility
           target.setAttribute('tabindex', '-1');
           target.focus({ preventScroll: true });
           setTimeout(() => target.removeAttribute('tabindex'), 1500);
@@ -97,78 +80,6 @@
   }
 
   /* ---------------------------
-     Likes (per-feature) with localStorage
-     - toggles like/unlike and persists counts + pressed state
-     --------------------------- */
-  function LikesManager() {
-    let state = { counts: {}, pressed: {} };
-
-    function load() {
-      try {
-        const raw = localStorage.getItem(LIKE_KEY);
-        const parsed = safeJSONParse(raw, null);
-        if (parsed && typeof parsed === 'object') state = parsed;
-      } catch (e) {
-        // ignore
-      }
-    }
-
-    function save() {
-      try {
-        localStorage.setItem(LIKE_KEY, JSON.stringify(state));
-      } catch (e) {
-        // ignore quota errors
-        console.warn('Could not save likes to localStorage.');
-      }
-    }
-
-    function init() {
-      load();
-      qsa('.feature').forEach(feature => {
-        const id = feature.dataset.id || feature.getAttribute('data-id') || null;
-        const btn = qs('.like-btn', feature);
-        const countEl = qs('.count', feature);
-
-        if (!id || !btn || !countEl) return;
-
-        // initial render - fallback to dataset or 0
-        const initialCount = Number(state.counts && state.counts[id]) || Number(countEl.textContent) || 0;
-        countEl.textContent = initialCount;
-        const pressed = Boolean(state.pressed && state.pressed[id]);
-        btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
-
-        // accessibility attrs
-        if (!btn.hasAttribute('aria-label')) {
-          const name = (qs('h3', feature) && qs('h3', feature).textContent.trim()) || id;
-          btn.setAttribute('aria-label', `Like ${name}`);
-        }
-        btn.setAttribute('role', 'button');
-
-        btn.addEventListener('click', () => {
-          const isPressed = btn.getAttribute('aria-pressed') === 'true';
-          if (!state.counts) state.counts = {};
-          if (!state.pressed) state.pressed = {};
-
-          if (isPressed) {
-            state.counts[id] = Math.max(0, (state.counts[id] || initialCount) - 1);
-            state.pressed[id] = false;
-            btn.setAttribute('aria-pressed', 'false');
-          } else {
-            state.counts[id] = (state.counts[id] || initialCount) + 1;
-            state.pressed[id] = true;
-            btn.setAttribute('aria-pressed', 'true');
-          }
-
-          countEl.textContent = state.counts[id];
-          save();
-        });
-      });
-    }
-
-    return { init };
-  }
-
-  /* ---------------------------
      Inline WhatsApp card (Contact section)
      --------------------------- */
   function wireInlineWhatsApp() {
@@ -181,14 +92,12 @@
     }
 
     if (waTemplatesBtn && waTemplatesBox) {
-      // toggle
       waTemplatesBtn.addEventListener('click', (e) => {
         const expanded = waTemplatesBtn.getAttribute('aria-expanded') === 'true';
         waTemplatesBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         waTemplatesBox.hidden = expanded;
       });
 
-      // click templates (event delegation)
       waTemplatesBox.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-msg]');
         if (!btn) return;
@@ -219,7 +128,6 @@
     const waBottom = qs('#waBottom');
     const bottomOpen = qs('#waBottomOpen');
 
-    // direct open link
     if (floatOpenDirect) {
       floatOpenDirect.addEventListener('click', (e) => {
         e.preventDefault();
@@ -234,7 +142,6 @@
         floatBtn.setAttribute('aria-expanded', String(!hidden));
       });
 
-      // template clicks
       floatTmpls.forEach(b => {
         b.addEventListener('click', () => {
           const msg = b.getAttribute('data-msg') || '';
@@ -242,7 +149,6 @@
         });
       });
 
-      // close when clicking outside
       document.addEventListener('click', (e) => {
         if (!floatPop || !floatBtn) return;
         if (floatPop.hidden) return;
@@ -253,12 +159,10 @@
       });
     }
 
-    // mobile bottom bar "Start Chat"
     if (bottomOpen) {
       bottomOpen.addEventListener('click', () => openWhatsApp());
     }
 
-    // responsive display toggling
     function updateDisplay() {
       const isMobile = window.matchMedia('(max-width:680px)').matches;
       if (isMobile) {
@@ -277,7 +181,6 @@
 
   /* ---------------------------
      Nav toggle (mobile)
-     - toggles body.nav-open, closes on outside click or Escape
      --------------------------- */
   function wireNavToggle() {
     const navToggle = qs('#navToggle');
@@ -294,35 +197,21 @@
       setNavOpen(!isOpen);
     });
 
-    // close when click outside
     document.addEventListener('click', (e) => {
       if (!document.body.classList.contains('nav-open')) return;
       const insideNav = mainNav.contains(e.target) || navToggle.contains(e.target);
       if (!insideNav) setNavOpen(false);
     });
 
-    // close on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') setNavOpen(false);
     });
 
-    // ensure nav is hidden when resizing to desktop
     function onResize() {
       const isDesktop = window.matchMedia('(min-width:981px)').matches;
       if (isDesktop) setNavOpen(false);
     }
     window.addEventListener('resize', debounce(onResize, 120));
-  }
-
-  /* ---------------------------
-     Accessibility helpers
-     --------------------------- */
-  function ensureA11y() {
-    qsa('.like-btn').forEach((b, idx) => {
-      if (!b.hasAttribute('aria-label')) b.setAttribute('aria-label', `Like feature ${idx + 1}`);
-      b.setAttribute('role', 'button');
-      if (!b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', 'false');
-    });
   }
 
   /* ---------------------------
@@ -332,26 +221,19 @@
     injectYear();
     wireSmoothScroll();
     wireCTAs();
-
-    const likes = LikesManager();
-    likes.init();
-
     wireInlineWhatsApp();
     wireFloatingWhatsApp();
     wireNavToggle();
-    ensureA11y();
   }
 
-  // run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
 
-  /* ---------------------------
-     Optional debug helpers on window (comment out in production)
-     --------------------------- */
   // window.AstroTalk = { openWhatsApp }; // uncomment to expose for console debugging
 
 })();
+
+
